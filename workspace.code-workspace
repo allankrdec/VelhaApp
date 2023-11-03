@@ -1,0 +1,45 @@
+{
+  "folders": [   
+    {
+      "path": "mobile"
+    }
+  ],
+  "settings": {
+    "colorize.languages": ["javascriptreact", "javascript", "css", "scss"],
+    "git.ignoreMissingGitWarning": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "window.zoomLevel": 0,
+    "files.trimTrailingWhitespace": true,
+    "terminal.integrated.rendererType": "dom",
+    "html.format.wrapLineLength": 110,
+    "editor.wrappingIndent": "indent",
+    "typescript.updateImportsOnFileMove.enabled": "never",
+
+    "eslint.validate": ["javascript","javascriptreact"],
+
+    "editor.rulers": [95, 110],
+    "editor.tabSize": 2,
+
+    "editor.renderLineHighlight": "gutter",
+    "emmet.syntaxProfiles": {
+      "javascript": "jsx"
+    },
+    "emmet.includeLanguages": {
+      "javascript": "javascriptreact"
+    },
+    "javascript.updateImportsOnFileMove.enabled": "never",
+    "breadcrumbs.enabled": false,
+    "editor.parameterHints.enabled": false, // tira os hints de ajuda
+    "workbench.colorTheme": "Dracula",
+	   "prettier.endOfLine": "crlf",
+
+
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "files.eol": "\n"
+  }
+}
