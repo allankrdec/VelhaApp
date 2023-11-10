@@ -184,7 +184,7 @@ export function errorHandle(error: any): void {
  * @param msg Mensagem
  */
 export function MessageDialog(msg: string): void {
-  Alert.alert(msg);
+  Alert.alert('Atenção', msg);
 }
 
 /**

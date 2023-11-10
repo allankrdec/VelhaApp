@@ -32,14 +32,14 @@
     "expo-constants": "~14.4.2",
     "expo-file-system": "~15.4.4",
     "expo-font": "~11.4.0",
-    "expo-image": "~1.3.3",
+    "expo-image": "~1.3.4",
     "expo-intent-launcher": "~10.7.0",
     "expo-linear-gradient": "~12.3.0",
     "expo-linking": "~5.0.2",
     "expo-sharing": "~11.5.0",
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
-    "expo-updates": "~0.18.14",
+    "expo-updates": "~0.18.17",
     "react": "18.2.0",
     "react-native": "0.72.5",
     "react-native-gesture-handler": "~2.12.0",
@@ -68,7 +68,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^3.0.3",
     "typedoc": "^0.25.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.1.3"
   },
   "private": true
 }

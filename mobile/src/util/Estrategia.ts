@@ -177,6 +177,9 @@ export default class Estrategia {
           // defende inicio se o humano começa
           jogada = this.proximaJogadaDefenderInicio(Estrategia.simboloComputador);
 
+        if (jogada === -1) {
+          jogada = this.proximaJogadaDefender();
+        }
         break;
       case 1: // facil
         if (chanceJogada < 70)
@@ -199,6 +202,9 @@ export default class Estrategia {
           // defende inicio se o humano começa
           jogada = this.proximaJogadaDefenderInicio(Estrategia.simboloComputador);
 
+        if (jogada === -1) {
+          jogada = this.proximaJogadaDefender();
+        }
         break;
       case 2: // normmal
         if (chanceJogada < 90)
@@ -219,6 +225,10 @@ export default class Estrategia {
         if (jogada === -1 && chanceJogada < 70)
           // defende inicio se o humano começa
           jogada = this.proximaJogadaDefenderInicio(Estrategia.simboloComputador);
+
+        if (jogada === -1) {
+          jogada = this.proximaJogadaDefender();
+        }
 
         if (jogada === -1 && chanceJogada < 50) jogada = this.proximaJogadaComplexa();
 
@@ -243,6 +253,10 @@ export default class Estrategia {
         if (jogada === -1 && chanceJogada < 85)
           // defende inicio se o humano começa
           jogada = this.proximaJogadaDefenderInicio(Estrategia.simboloComputador);
+
+        if (jogada === -1) {
+          jogada = this.proximaJogadaDefender();
+        }
 
         if (jogada === -1 && chanceJogada < 90) jogada = this.proximaJogadaComplexa();
 
@@ -290,6 +304,20 @@ export default class Estrategia {
     return retorno;
   }
 
+  public proximaJogadaDefender(): number {
+    let retorno: number = -1;
+    if (
+      this.qtdJogadas === 3 &&
+      !this.computadorComecou &&
+      this.intInArray([0, 2, 6, 8], this.ultimaJogadaHumano) &&
+      this.primeiraJogadaHumano === 4
+    ) {
+      retorno = this.buscarPosLivre([0, 2, 6, 8]);
+    }
+
+    return retorno;
+  }
+
   public proximaJogadaSimples(_simboloComputador: string): number {
     let encontrou = 0;
     let posLivre = -1;
@@ -322,12 +350,15 @@ export default class Estrategia {
     let retorno = -1;
     if (this.computadorComecou && this.qtdJogadas >= 2) {
       // começando nas laterais 0, 2, 6, 8
+      console.log('complexa1');
       if (
         this.intInArray([0, 2, 6, 8], this.primeiraJogadaComputador) &&
         this.primeiraJogadaHumano !== 4
       ) {
+        console.log('complexa2');
         switch (this.qtdJogadas) {
           case 2:
+            console.log(this.primeiraJogadaHumano);
             if (this.intInArray([1, 3, 5, 7], this.ultimaJogadaHumano)) retorno = 4;
             else if (this.primeiraJogadaComputador === 0 && this.primeiraJogadaHumano !== 8)
               retorno = 8;
@@ -362,6 +393,7 @@ export default class Estrategia {
         this.primeiraJogadaComputador === 4 &&
         this.intInArray([1, 3, 5, 7], this.primeiraJogadaHumano)
       ) {
+        console.log('complexa3');
         switch (this.qtdJogadas) {
           case 2:
             retorno = this.getAdjacente(this.ultimaJogadaHumano, true);
@@ -394,14 +426,19 @@ export default class Estrategia {
   public marcarPosicaoTabuleiro(posicao: number, simbolo: string): void {
     if (simbolo === Estrategia.simboloComputador) {
       this.ultimaJogadaComputador = posicao;
-      if (this.qtdJogadas === 0)
-        // se o computador começar
+      // se o computador começar
+      if (this.qtdJogadas === 0) {
         this.primeiraJogadaComputador = posicao;
+      } else if (this.qtdJogadas === 1) {
+        this.primeiraJogadaHumano = posicao;
+      }
     } else {
       this.ultimaJogadaHumano = posicao;
-      if (this.qtdJogadas === 1)
-        // se o computador começar
+      if (this.qtdJogadas === 0) {
         this.primeiraJogadaHumano = posicao;
+      } else if (this.qtdJogadas === 1) {
+        this.primeiraJogadaComputador = posicao;
+      }
     }
     const valTemp = this.tabuleiro.split('');
     valTemp[posicao] = simbolo;

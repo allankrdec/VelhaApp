@@ -6,7 +6,7 @@
  * @category Page/Home
  */
 
-import * as Linking from 'expo-linking';
+// import * as Linking from 'expo-linking';
 import React, { useCallback, useEffect, useState } from 'react';
 import { BackHandler, View } from 'react-native';
 import { useTheme } from 'styled-components';
@@ -30,7 +30,7 @@ import { Body, Container } from './styles';
 export default function Home() {
   const theme = useTheme();
   const global = useGlobal();
-  const nomeDificuldade = ['Muito Fácil', 'Fácio', 'Normal', 'Difícil'];
+  const nomeDificuldade = ['Muito Fácil', 'Fácil', 'Normal', 'Difícil'];
 
   const [showMenu, setShowMenu] = useState(false);
   const [showMenuDificuldade, setShowMenuDificuldade] = useState(false);
@@ -42,7 +42,7 @@ export default function Home() {
   const [reiniciandoPartida, setReiniciandoPartida] = useState(false);
   const [posicoesVitoria, setPosicoesVitoria] = useState(['', '', '']);
   const [ec] = useState(new Estrategia());
-  const [dificuldade, setDificuldade] = useState(0);
+  const [dificuldade, setDificuldade] = useState(2);
   const [computadorInicia, setComputadorInicia] = useState(false);
   const [qtdPartidas, setQtdPartidas] = useState(0);
   const [qtdVitorias, setQtdVitorias] = useState(0);
@@ -126,23 +126,33 @@ export default function Home() {
   const salvaPlacar = async (
     qtdPartidas: number,
     qtdVitorias: number,
-    qtdDerrotas: number
+    qtdDerrotas: number,
+    dificuldade: number
   ) => {
     await StorageService.storeObj(KeysStorage.placar, {
       qtdPartidas,
       qtdVitorias,
       qtdDerrotas,
+      dificuldade,
     });
   };
 
   const carregaPlacar = async () => {
     const placar = await StorageService.getDataObj(KeysStorage.placar);
     if (placar) {
-      const { qtdPartidas, qtdVitorias, qtdDerrotas } = placar;
+      const { qtdPartidas, qtdVitorias, qtdDerrotas, dificuldade } = placar;
+      ec.setDificuldade(dificuldade);
+
       setQtdPartidas(qtdPartidas || 0);
       setQtdVitorias(qtdVitorias || 0);
       setQtdDerrotas(qtdDerrotas || 0);
+      setDificuldade(dificuldade || 0);
+    } else {
+      ec.setDificuldade(dificuldade);
     }
+
+    ec.limparTabuleiro();
+    setPosicoesVitoria(['', '', '']);
   };
 
   const criaListaVitoria = (listaQueGanou: number[] | null) => {
@@ -168,7 +178,7 @@ export default function Home() {
 
       const pGanhou = ec.getlistaQueGanhou();
       criaListaVitoria(pGanhou);
-      salvaPlacar(qtdPartidas + 1, qtdVitorias + 1, qtdDerrotas);
+      salvaPlacar(qtdPartidas + 1, qtdVitorias + 1, qtdDerrotas, dificuldade);
 
       MessageDialog('Você ganhou!');
       return true;
@@ -182,7 +192,7 @@ export default function Home() {
 
       const pGanhou = ec.getlistaQueGanhou();
       criaListaVitoria(pGanhou);
-      salvaPlacar(qtdPartidas + 1, qtdVitorias, qtdDerrotas + 1);
+      salvaPlacar(qtdPartidas + 1, qtdVitorias, qtdDerrotas + 1, dificuldade);
 
       MessageDialog('Você perdeu!');
       return true;
@@ -192,7 +202,7 @@ export default function Home() {
     if (ec.verificaEmpate()) {
       setComputadorInicia(!computadorInicia);
       setQtdPartidas(qtdPartidas + 1);
-      salvaPlacar(qtdPartidas + 1, qtdVitorias, qtdDerrotas);
+      salvaPlacar(qtdPartidas + 1, qtdVitorias, qtdDerrotas, dificuldade);
       MessageDialog('Jogo Empatado!');
       // qtdPartidasEmpates++;
       return true;
@@ -220,10 +230,6 @@ export default function Home() {
   }, [backPressed]);
 
   useEffect(() => {
-    ec.setDificuldade(dificuldade);
-    ec.limparTabuleiro();
-
-    setPosicoesVitoria(['', '', '']);
     carregaPlacar();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -237,11 +243,11 @@ export default function Home() {
         <MenuModal
           titulo="Selecione uma opção"
           buttons={[
-            {
-              title: 'Política de Privacidade',
-              type: 'primary',
-              iconName: 'book',
-            },
+            // {
+            //   title: 'Política de Privacidade',
+            //   type: 'primary',
+            //   iconName: 'book',
+            // },
             {
               title: 'Dificuldade',
               type: 'primary',
@@ -252,13 +258,13 @@ export default function Home() {
           setModalVisible={setShowMenu}
           onPress={(i) => {
             switch (i) {
-              case 0:
-                Linking.openURL(
-                  'https://speedylinux.com.br/politica-de-privacidade-velha-app'
-                );
-                break;
+              // case 0:
+              //   Linking.openURL(
+              //     'https://speedylinux.com.br/politica-de-privacidade-velha-app'
+              //   );
+              //   break;
 
-              case 1:
+              case 0:
                 setShowMenuDificuldade(true);
                 break;
 
@@ -337,6 +343,7 @@ export default function Home() {
             <ButtonSp
               title=""
               type="warning"
+              showBackground={false}
               iconImage={IconConfiguracao}
               iconSize={RFValueSp(20)}
               style={{
@@ -417,6 +424,7 @@ export default function Home() {
               reiniciaPartida(dificuldade);
             }
           }}
+          styleContainer={{ width: 200 }}
         />
       </View>
     </Container>

@@ -16,6 +16,7 @@ import {
   StyleSheet,
   Text,
   Image,
+  View,
 } from 'react-native';
 import { GestureHandlerRootView, TouchableOpacity } from 'react-native-gesture-handler';
 import { GenericTouchableProps } from 'react-native-gesture-handler/lib/typescript/components/touchables/GenericTouchable';
@@ -132,43 +133,54 @@ export default function ButtonSp(props: Props) {
           ...style,
         }}
       >
-        <TouchableOpacity
-          disabled={disabled}
-          activeOpacity={0.7}
+        <View
           style={{
-            ...localStyles.button,
-
-            borderColor,
-            height: Math.max(iconSize!, localStyles.text.fontSize) + RFValueSp(13),
-            ...style,
+            backgroundColor: theme.colors.transparent,
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'stretch',
           }}
-          {...rest}
         >
-          {iconImage && (
-            <Image
-              source={iconImage}
-              style={{ width: iconSize, height: iconSize, tintColor: iconColorTemp }}
-            />
-          )}
-          {iconName && (
-            <Icon
-              name={iconName}
-              size={iconSize}
-              color={disabled ? colorDisabled : iconColorTemp}
-            />
-          )}
-          {title ? (
-            <Text
-              style={{
-                ...localStyles.text,
-                color: disabled ? colorDisabled : iconColorTemp,
-                ...styleText,
-              }}
-            >
-              {title || ''}
-            </Text>
-          ) : null}
-        </TouchableOpacity>
+          <TouchableOpacity
+            disabled={disabled}
+            activeOpacity={0.7}
+            style={{
+              ...localStyles.button,
+
+              borderColor,
+              height: Math.max(iconSize!, localStyles.text.fontSize) + RFValueSp(13),
+              paddingLeft: 10,
+              paddingRight: 10,
+              ...style,
+            }}
+            {...rest}
+          >
+            {iconImage && (
+              <Image
+                source={iconImage}
+                style={{ width: iconSize, height: iconSize, tintColor: iconColorTemp }}
+              />
+            )}
+            {iconName && (
+              <Icon
+                name={iconName}
+                size={iconSize}
+                color={disabled ? colorDisabled : iconColorTemp}
+              />
+            )}
+            {title ? (
+              <Text
+                style={{
+                  ...localStyles.text,
+                  color: disabled ? colorDisabled : iconColorTemp,
+                  ...styleText,
+                }}
+              >
+                {title || ''}
+              </Text>
+            ) : null}
+          </TouchableOpacity>
+        </View>
       </LinearGradient>
     </GestureHandlerRootView>
   );
@@ -197,12 +209,14 @@ const localStyles = StyleSheet.create({
 
   buttonContainer: {
     display: 'flex',
-    flexDirection: 'row',
+
+    flexDirection: 'column',
+    alignItems: 'stretch',
     justifyContent: 'center',
-    alignItems: 'center',
+
     borderRadius: 6,
-    padding: 5,
-    margin: 2,
+    // padding: 5,
+    // margin: 2,
   },
 
   text: {
