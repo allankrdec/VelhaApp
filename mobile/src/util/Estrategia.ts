@@ -350,15 +350,12 @@ export default class Estrategia {
     let retorno = -1;
     if (this.computadorComecou && this.qtdJogadas >= 2) {
       // começando nas laterais 0, 2, 6, 8
-      console.log('complexa1');
       if (
         this.intInArray([0, 2, 6, 8], this.primeiraJogadaComputador) &&
         this.primeiraJogadaHumano !== 4
       ) {
-        console.log('complexa2');
         switch (this.qtdJogadas) {
           case 2:
-            console.log(this.primeiraJogadaHumano);
             if (this.intInArray([1, 3, 5, 7], this.ultimaJogadaHumano)) retorno = 4;
             else if (this.primeiraJogadaComputador === 0 && this.primeiraJogadaHumano !== 8)
               retorno = 8;
@@ -393,7 +390,6 @@ export default class Estrategia {
         this.primeiraJogadaComputador === 4 &&
         this.intInArray([1, 3, 5, 7], this.primeiraJogadaHumano)
       ) {
-        console.log('complexa3');
         switch (this.qtdJogadas) {
           case 2:
             retorno = this.getAdjacente(this.ultimaJogadaHumano, true);

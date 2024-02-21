@@ -390,6 +390,9 @@ export default function Home() {
         {!reiniciandoPartida && (
           <Tabuleiro
             buttonnClick={async (x, y) => {
+              if (global.loading) {
+                return;
+              }
               try {
                 global.setLoading(true);
                 processaJogagaHumano(x, y);

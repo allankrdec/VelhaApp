@@ -21,7 +21,7 @@ export default function LoaderView() {
   // <Modal transparent visible={global.loading}>
   if (global.loading)
     return (
-      <View style={{ height: '100%', width: '100%', zIndex: 5000, position: 'absolute' }}>
+      <View style={{ height: '100%', width: '100%', zIndex: 10000, position: 'absolute' }}>
         <View
           style={{
             flex: 1,

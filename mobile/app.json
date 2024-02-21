@@ -2,7 +2,7 @@
   "expo": {
     "name": "VelhaApp",
     "slug": "VelhaApp",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -16,7 +16,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "1.0.0",
+      "buildNumber": "1.1.0",
       "bundleIdentifier": "br.speedylinux.velhaapp"
     },
     "android": {
@@ -24,7 +24,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff",
         "package": "br.speedylinux.velhaapp",
-        "versionCode": 23
+        "versionCode": 24
       },
       "package": "br.speedylinux.velhaapp"
     },
