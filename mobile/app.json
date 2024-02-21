@@ -24,7 +24,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff",
         "package": "br.speedylinux.velhaapp",
-        "versionCode": 24
+        "versionCode": 2
       },
       "package": "br.speedylinux.velhaapp"
     },
