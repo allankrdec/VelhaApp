@@ -23,10 +23,10 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff",
-        "package": "br.speedylinux.velhaapp",
-        "versionCode": 2
+        "package": "br.speedylinux.velhaapp"
       },
-      "package": "br.speedylinux.velhaapp"
+      "package": "br.speedylinux.velhaapp",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
